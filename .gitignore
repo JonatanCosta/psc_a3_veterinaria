@@ -3,6 +3,8 @@
 
 .ideia/*
 
+src/DAO/Conexao.java
+
 # Log file Test
 *.log
 
