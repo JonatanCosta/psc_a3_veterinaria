@@ -1,3 +1,6 @@
+import DAO.TipoDePagamentoDAO;
+import Entidades.TipoDePagamento;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,6 +32,7 @@ public class Main {
                  * Cadastrar Animal
                  */
                 case 1:
+
 
                     break;
                 /**

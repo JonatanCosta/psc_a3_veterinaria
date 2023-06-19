@@ -18,27 +18,27 @@ public class TipoDePagamentoDAO {
             String query;
             PreparedStatement stmt = null;
 
-            query = "SELECT * FROM tipo_pagamento";
+            query = "SELECT * FROM tipo_de_pagamento";
             stmt = conexao.prepareStatement(query);
 
             ResultSet rs = stmt.executeQuery();
 
             System.out.println("---------------------------------------------------------------------------------------------------------------------------");
-            System.out.format("ID\tNOME\t\t\t\t\t\t");
+            System.out.format("ID\tForma Pagamento\t\t\t\t\t\t");
             System.out.println("---------------------------------------------------------------------------------------------------------------------------");
 
             while (rs.next()) {
 
                 // Recupera cada um dos campos do registro, devemos recuperar com o tipo correto
                 int id = rs.getInt("id");
-                String nome = rs.getString("nome");
+                String forma_pagamento = rs.getString("forma_pagamento");
 
                 // Imprime os dados do registro na tela de maneira formata para alinhamento
                 // %d indica é inteiro | %s indica que é string | %f indica que é float/double
                 // os valores numéricos correspondem a quantidade de caracteres que a coluna deve ocupar
                 // por exemolo %-20s: o sinal de menos diz que o alinhamento deve ser alinhado a esquerda e que a coluna ocupa 20 caracteres com um valor de string
                 // o \t corresponde a um tab para melhor organização em formato tabular
-                System.out.format("%d\t%-20s\t\t%-30s\t%-30s\t%-10s\n", id, nome);
+                System.out.format("%d\t%-20s\t\n", id, forma_pagamento);
             }
 
             rs.close();
