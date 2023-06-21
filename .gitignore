@@ -1,7 +1,9 @@
 # Compiled class file
 *.class
 
-.ideia/*
+# IDEA config files
+.idea/
+src/DAO/Conexao.java
 
 
 # Log file Test
