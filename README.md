@@ -13,5 +13,5 @@ Via Terminal <br/>
 `cp src/ConexaoExample.java src/Conexao.java`
 
 Via Arquivos <br/>
-`Dentro da pasta DAO copiar o ConexaoExample.js e colar na pasta com nome de Conexao.java`
+`Dentro da pasta DAO copiar o ConexaoExample.java e colar na pasta com nome de Conexao.java`
 
