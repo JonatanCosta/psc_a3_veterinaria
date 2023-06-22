@@ -30,6 +30,7 @@ public class Main extends Utils {
                 case 1:
                     AnimalServico animalServico = new AnimalServico();
                     animalServico.cadastrarAnimal();
+
                     break;
                 /**
                  * Agendar Consulta

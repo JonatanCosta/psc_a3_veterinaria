@@ -1,0 +1,190 @@
+-- Criação das Tabelas
+USE sistema_pet;
+
+-- Criação da tabela de Secretaria
+CREATE TABLE IF NOT EXISTS SECRETARIA (
+  ID INT NOT NULL AUTO_INCREMENT,
+  CPF VARCHAR(14) NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  telefone VARCHAR(14) NOT NULL,
+  PRIMARY KEY (ID))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- Criação da tabela de Veterinario
+CREATE TABLE IF NOT EXISTS VETERINARIO (
+  ID INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  CRMV VARCHAR(14) NOT NULL,
+  telefone VARCHAR(14) NOT NULL,
+  PRIMARY KEY (ID))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- Criação da tabela de Endereço
+CREATE TABLE IF NOT EXISTS ENDERECO (
+  ID INT NOT NULL AUTO_INCREMENT,
+  CEP VARCHAR(10) NOT NULL,
+  rua VARCHAR(255) NOT NULL,
+  numero INT NOT NULL,
+  bairro VARCHAR(255) NOT NULL,
+  PRIMARY KEY (ID))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- Criação da tabela de Clinica
+CREATE TABLE IF NOT EXISTS CLINICA (
+  ID INT NOT NULL AUTO_INCREMENT,
+  CNPJ VARCHAR(20) NOT NULL,
+  razao_social VARCHAR(255) NOT NULL,
+  telefone VARCHAR(14) NOT NULL,
+  endereco_ID INT NOT NULL,
+  PRIMARY KEY (ID),
+	FOREIGN KEY (endereco_ID)
+	REFERENCES endereco (ID)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION)
+ENGINE = InnoDB; 
+SHOW WARNINGS;
+
+
+-- Criação da Tabela de Procedimento
+CREATE TABLE IF NOT EXISTS PROCEDIMENTO (
+  ID INT NOT NULL AUTO_INCREMENT,
+  nome_procedimento VARCHAR(255) NOT NULL,
+  preco_atendimento FLOAT NOT NULL,
+  PRIMARY KEY (ID))
+ENGINE = InnoDB;
+SHOW WARNINGS;
+
+-- Tipo de Pagamento
+CREATE TABLE IF NOT EXISTS TIPO_DE_PAGAMENTO (
+  ID INT NOT NULL AUTO_INCREMENT,
+  forma_pagamento VARCHAR(45) NOT NULL,
+  PRIMARY KEY (ID))
+ENGINE = InnoDB;
+SHOW WARNINGS;
+
+-- Criação da tabela de Especie
+CREATE TABLE IF NOT EXISTS ESPECIE (
+  ID INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  PRIMARY KEY (ID))
+ENGINE = InnoDB;
+SHOW WARNINGS;
+
+-- Criação da tabela de Raça
+CREATE TABLE IF NOT EXISTS RACA (
+  ID INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  especie_ID INT NOT NULL,
+  PRIMARY KEY (ID, especie_ID),
+  CONSTRAINT fk_raca_especie1
+    FOREIGN KEY (especie_ID)
+    REFERENCES  especie (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- Criação da tabela de Responsável
+CREATE TABLE IF NOT EXISTS RESPONSAVEL (
+  ID INT NOT NULL AUTO_INCREMENT,
+  CPF VARCHAR(14) NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  telefone VARCHAR(14) NOT NULL,
+  endereco_ID INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_responsavel_endereco1
+    FOREIGN KEY (endereco_ID)
+    REFERENCES endereco (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- Criação da tabela de Animal
+CREATE TABLE IF NOT EXISTS ANIMAL (
+	ID INT NOT NULL AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+	porte VARCHAR(45) NOT NULL,
+	idade INT NOT NULL,
+	responsavel_ID INT NOT NULL,
+	raca_ID INT NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (responsavel_ID)
+	REFERENCES  responsavel (ID),
+	CONSTRAINT fk_animal_raca1
+	FOREIGN KEY (raca_ID)
+	REFERENCES  raca (ID)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+SHOW WARNINGS;
+
+-- Criação da tabela de Clinica
+CREATE TABLE IF NOT EXISTS CLINICA (
+  ID INT NOT NULL AUTO_INCREMENT,
+  CNPJ VARCHAR(20) NOT NULL,
+  razao_social VARCHAR(255) NOT NULL,
+  telefone VARCHAR(14) NOT NULL,
+  endereco_ID INT NOT NULL,
+  PRIMARY KEY (ID),
+  CONSTRAINT fk_clinica_endereco1
+    FOREIGN KEY (endereco_ID)
+    REFERENCES endereco (ID)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB; 
+
+SHOW WARNINGS;
+
+use sistema_pet;
+
+-- Criação da tabela de Agendamento
+CREATE TABLE IF NOT EXISTS AGENDAMENTO (
+  ID INT NOT NULL AUTO_INCREMENT,
+  data_agendamento DATE NOT NULL,
+  hora TIME NOT NULL,
+  responsavel_ID INT NOT NULL,
+  animal_id INT NOT NULL,
+  clinica_ID INT NOT NULL,
+  veterinario_ID INT NOT NULL, 
+  tipo_de_pagamento_ID INT NOT NULL,
+  procedimento_ID INT NOT NULL,
+  PRIMARY KEY (ID),
+  
+  FOREIGN KEY (responsavel_ID)
+  REFERENCES responsavel (ID)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  
+  FOREIGN KEY (animal_ID)
+  REFERENCES animal (ID)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  
+  FOREIGN KEY (clinica_ID)
+  REFERENCES clinica (ID)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  
+  FOREIGN KEY (veterinario_ID)
+  REFERENCES veterinario (ID)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  
+  FOREIGN KEY (tipo_de_pagamento_ID)
+  REFERENCES tipo_de_pagamento (ID)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  
+  FOREIGN KEY (procedimento_ID)
+  REFERENCES procedimento (ID)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
