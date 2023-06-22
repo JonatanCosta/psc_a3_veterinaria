@@ -11,23 +11,18 @@ public class Animal {
 
     private int responsavel_id;
 
-    private int secretaria_id;
-
     private int raca_id;
 
     private Responsavel responsavel;
 
-    private Secretaria secretaria;
-
     private Raca raca;
 
-    public Animal(int id, String nome, String porte, int idade, int responsavel_id, int secretaria_id, int raca_id) {
+    public Animal(int id, String nome, String porte, int idade, int responsavel_id, int raca_id) {
         this.id = id;
         this.nome = nome;
         this.porte = porte;
         this.idade = idade;
         this.responsavel_id = responsavel_id;
-        this.secretaria_id = secretaria_id;
         this.raca_id = raca_id;
     }
 
@@ -70,14 +65,6 @@ public class Animal {
         this.responsavel_id = responsavel_id;
     }
 
-    public int getSecretaria_id() {
-        return secretaria_id;
-    }
-
-    public void setSecretaria_id(int secretaria_id) {
-        this.secretaria_id = secretaria_id;
-    }
-
     public int getRaca_id() {
         return raca_id;
     }
@@ -92,14 +79,6 @@ public class Animal {
 
     public void setResponsavel(Responsavel responsavel) {
         this.responsavel = responsavel;
-    }
-
-    public Secretaria getSecretaria() {
-        return secretaria;
-    }
-
-    public void setSecretaria(Secretaria secretaria) {
-        this.secretaria = secretaria;
     }
 
     public Raca getRaca() {

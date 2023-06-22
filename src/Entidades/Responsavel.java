@@ -38,7 +38,7 @@ public class Responsavel {
     }
 
     public void setCPF(String CPF) {
-        this.CPF = CPF;
+        this.CPF = CPF.replaceAll("[^0-9]", "");
     }
 
     public String getNome() {
