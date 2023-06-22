@@ -1,7 +1,10 @@
 package DAO;
 
-public class AgendamentoDAO {
-    public void cadastrarAgendamento() {
+import Entidades.Agendamento;
+import Servico.Utils;
+
+public class AgendamentoDAO extends Utils {
+    public void cadastrarAgendamento(Agendamento agendamento) {
 
     }
 

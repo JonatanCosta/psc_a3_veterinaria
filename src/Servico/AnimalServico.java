@@ -11,6 +11,11 @@ public class AnimalServico extends Utils {
 
     }
 
+    public void listarAnimaisPorDono(int responsavelId) {
+        AnimalDAO animalDAO = new AnimalDAO();
+        animalDAO.listarAnimaisPorDono(responsavelId);
+    }
+
     public void cadastrarAnimal() {
         Scanner ler = new Scanner(System.in);
 

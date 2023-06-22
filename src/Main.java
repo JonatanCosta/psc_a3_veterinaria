@@ -1,3 +1,4 @@
+import Servico.AgendamentoServico;
 import Servico.AnimalServico;
 import Servico.EnderecoServico;
 import Servico.Utils;
@@ -36,7 +37,8 @@ public class Main extends Utils {
                  * Agendar Consulta
                  */
                 case 2:
-
+                    AgendamentoServico agendamentoServico = new AgendamentoServico();
+                    agendamentoServico.cadastrarAgendamento();
                     break;
             }
         } while(operacao != 0);

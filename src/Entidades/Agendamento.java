@@ -32,6 +32,10 @@ public class Agendamento {
         this.procedimento_id = procedimento_id;
     }
 
+    public Agendamento() {
+
+    }
+
     public int getId() {
         return id;
     }
