@@ -87,7 +87,7 @@ public class AgendamentoDAO extends Utils {
                     "inner join tipo_de_pagamento as TP\n" +
                     "on TP.ID = A.tipo_de_pagamento_ID\n" +
                     "inner join procedimento as P\n" +
-                    "on P.ID = A.procedimento_ID\n" +
+                    "on P.ID = A.procedimento_ID order by A.ID desc \n" +
                     ";\n";
             stmt = conexao.prepareStatement(query);
 

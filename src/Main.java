@@ -30,7 +30,7 @@ public class Main extends Utils {
 
             AgendamentoServico agendamentoServico = new AgendamentoServico();
 
-            switch(operacao) {
+            switch (operacao) {
                 /**
                  * Cadastrar Animal
                  */
@@ -72,7 +72,7 @@ public class Main extends Utils {
     }
 
     public static void exibirMenu() {
-        System.out.println("\n\n========= CLINICA PET FELIZ =========");
+        System.out.println("\n\n========= CLINICA PET CARE =========");
         System.out.println("1 | Cadastrar Animal");
 
         System.out.println("2 | Agendar Consulta");
