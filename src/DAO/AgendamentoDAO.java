@@ -94,9 +94,9 @@ public class AgendamentoDAO extends Utils {
             ResultSet rs = stmt.executeQuery();
 
 
-             System.out.println("---------------------------------------------------------------------------------------------------------------------------");
-             System.out.format("ID\tData Agendamento\tHora\tNome Responsavel\tNome Animal\tNome Clinica\tNome Veterinário\tForma de pagamento\n");
-             System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+             System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+             System.out.format("ID\tData Agendamento\tHora\t\tNome Responsavel\t\tNome Animal\t\t\tNome Clinica\t\tNome Veterinário\t\t\tForma de pagamento\n");
+             System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
              while (rs.next()) {
 
                 // Recupera cada um dos campos do registro, devemos recuperar com o tipo correto
@@ -115,7 +115,7 @@ public class AgendamentoDAO extends Utils {
                 // os valores numéricos correspondem a quantidade de caracteres que a coluna deve ocupar
                 // por exemolo %-20s: o sinal de menos diz que o alinhamento deve ser alinhado a esquerda e que a coluna ocupa 20 caracteres com um valor de string
                 // o \t corresponde a um tab para melhor organização em formato tabular
-                System.out.format("%d\t%-10s\t\t%-10s\t\t%-10s\t\t%-10s\t\t%-10s\t\t%-10s\t\t%-10s\t\n", id,data_agendamento, hora, nome_responsavel, nome_animal, nome_clinica, nome_veterinario, forma_pagamento);
+                System.out.format("%d\t%-15s\t\t%-8s\t%-16s\t\t%-15s\t\t%-15s\t\t%-20s\t\t%-15s\t\n", id,data_agendamento, hora, nome_responsavel, nome_animal, nome_clinica, nome_veterinario, forma_pagamento);
             }
 
             rs.close();
