@@ -24,6 +24,8 @@ public class Main extends Utils {
 
             operacao = Integer.parseInt(reader.readLine());
 
+            AgendamentoServico agendamentoServico = new AgendamentoServico();
+
             switch(operacao) {
                 /**
                  * Cadastrar Animal
@@ -37,8 +39,14 @@ public class Main extends Utils {
                  * Agendar Consulta
                  */
                 case 2:
-                    AgendamentoServico agendamentoServico = new AgendamentoServico();
                     agendamentoServico.cadastrarAgendamento();
+                    break;
+
+                /**
+                 * Buscar agendamentos
+                 */
+                case 3:
+                     agendamentoServico.listarAgendamentos();
                     break;
             }
         } while(operacao != 0);

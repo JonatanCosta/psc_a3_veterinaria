@@ -39,7 +39,15 @@ public class AgendamentoServico extends Utils {
     }
 
     public void listarAgendamentos() {
-
+        limpaTela();
+        AgendamentoDAO agendamentoDAO = new AgendamentoDAO();
+        agendamentoDAO.listarAgendamentos();
+        int continuar = 0;
+        Scanner ler = new Scanner(System.in);
+        do{
+            System.out.print("Digite 1 para voltar");
+            continuar = ler.nextInt();
+        } while (continuar == 0);
     }
 
     public void excluirAgendamento() {
