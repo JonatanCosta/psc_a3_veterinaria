@@ -129,11 +129,62 @@ public class AgendamentoDAO extends Utils {
         }
     }
 
-    public void excluirAgendamento() {
+    public void excluirAgendamento(int idAgendamento) {
+        try {
+            String query = "DELETE FROM AGENDAMENTO WHERE id = ?";
+            PreparedStatement stmt = conexao.prepareStatement(query);
 
+            stmt.setInt(1, idAgendamento);
+
+
+            int res = stmt.executeUpdate();
+
+            // Caso não ocorra erro na inserção, essa mensagem será exibida, senão vai direto para o catch
+            if(res > 0)
+                mensagemSucesso("AGENDAMENTO EXCLUIDO COM SUCESSO");
+            else
+                mensagemSucesso("AGENDAMENTO NÃO EXISTE");
+
+            stmt.close();
+
+        } catch (SQLException e) {
+            // Em caso de ocorrer erro na integração com banco de dados, as informações do erro serão exibidas
+            System.out.println("Error Code = " + e.getErrorCode());
+            System.out.println("SQL state = " + e.getSQLState());
+            System.out.println("Message = " + e.getMessage());
+        }
     }
 
-    public void editarAgendamento() {
+    public void editarAgendamento(int IdAgendamento, Agendamento agendamento) {
+        try {
+            // Preparação da estrutura SQL para realização da execução no banco de dados
+            String query = "UPDATE AGENDAMENTO SET data_agendamento = ?, hora = ? WHERE id = ?";
+            PreparedStatement stmt = conexao.prepareStatement(query);
 
+            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date data = formatoDate.parse(agendamento.getDataAgendamento());
+
+            SimpleDateFormat formatoDateTime = new SimpleDateFormat("HH:mm");
+            java.util.Date hora = formatoDateTime.parse(agendamento.getHora());
+
+            stmt.setDate(1, new Date(data.getTime()));
+            stmt.setTime(2, new Time(hora.getTime()));
+            stmt.setInt(3, IdAgendamento);
+
+            // Execução da query no banco de dados e fechamento do statment
+            stmt.execute();
+            stmt.close();
+
+            // Caso não ocorra erro na inserção, essa mensagem será exibida, senão vai direto para o catch
+            mensagemSucesso("AGENDAMENTO EDITADO COM SUCESSO");
+
+        } catch (SQLException e) {
+            // Em caso de ocorrer erro na integração com banco de dados, as informações do erro serão exibidas
+            System.out.println("Error Code = " + e.getErrorCode());
+            System.out.println("SQL state = " + e.getSQLState());
+            System.out.println("Message = " + e.getMessage());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

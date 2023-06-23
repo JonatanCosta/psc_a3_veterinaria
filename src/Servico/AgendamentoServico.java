@@ -41,7 +41,39 @@ public class AgendamentoServico extends Utils {
         agendamentoDAO.cadastrarAgendamento(agendamento);
 
         mensagemSucesso("AGENDAMENTO EFETUADO COM SUCESSO");
+    }
 
+
+    public void deletarAgendamento() {
+        Scanner ler = new Scanner(System.in);
+        AgendamentoDAO agendamentoDAO = new AgendamentoDAO();
+
+        agendamentoDAO.listarAgendamentos();
+
+        System.out.print("Digite o ID do agendamento para deletar: ");
+        int idAgendamento = ler.nextInt();
+
+        agendamentoDAO.excluirAgendamento(idAgendamento);
+    }
+
+    public void editarAgendamento() {
+        Scanner ler = new Scanner(System.in);
+        AgendamentoDAO agendamentoDAO = new AgendamentoDAO();
+
+        agendamentoDAO.listarAgendamentos();
+
+        System.out.print("Digite o ID do agendamento para reagendar: ");
+        int idAgendamento = ler.nextInt();
+
+        Agendamento agendamento = new Agendamento();
+
+        limpaTela();
+        agendamento.setDataAgendamento(this.validarData());
+
+        limpaTela();
+        agendamento.setHora(this.validarHora());
+
+        agendamentoDAO.editarAgendamento(idAgendamento, agendamento);
     }
 
     private String validarData() {
@@ -102,13 +134,6 @@ public class AgendamentoServico extends Utils {
         } while (continuar == 0);
     }
 
-    public void excluirAgendamento() {
-
-    }
-
-    public void editarAgendamento() {
-
-    }
 
     private int buscarResponsavel() {
         Scanner ler = new Scanner(System.in);

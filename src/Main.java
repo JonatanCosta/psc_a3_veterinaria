@@ -52,6 +52,21 @@ public class Main extends Utils {
                 case 3:
                     agendamentoServico.listarAgendamentos();
                     break;
+
+                /**
+                 * Editar agendamentos
+                 */
+                case 4:
+                    agendamentoServico.editarAgendamento();
+                    break;
+
+
+                /**
+                 * Deletar agendamento
+                 */
+                case 5:
+                    agendamentoServico.deletarAgendamento();
+                    break;
             }
         } while(operacao != 0);
     }

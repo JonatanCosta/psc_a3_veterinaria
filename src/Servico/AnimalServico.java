@@ -49,6 +49,7 @@ public class AnimalServico extends Utils {
         mensagemSucesso("ANIMAL CADASTRADO COM SUCESSO");
     }
 
+
     private int selecionarResponsavel(Scanner ler) {
         String resposta;
         ResponsavelServico responsavelServico = new ResponsavelServico();
