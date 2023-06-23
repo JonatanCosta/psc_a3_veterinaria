@@ -3,18 +3,61 @@ package DAO;
 import Entidades.Agendamento;
 import Servico.Utils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class AgendamentoDAO extends Utils {
     Connection conexao;
     public AgendamentoDAO (){
         this.conexao = new Conexao().criarConexao();
     }
-    public void cadastrarAgendamento(Agendamento agendamento) {
+    public int cadastrarAgendamento(Agendamento agendamento) {
+        int idInserido = 0;
 
+        try {
+            // Preparação da estrutura SQL para realização da execução no banco de dados
+            String query = "INSERT INTO agendamento(data_agendamento, hora,responsavel_ID, animal_id," +
+                          " clinica_ID, veterinario_ID, tipo_de_pagamento_ID,  procedimento_ID) " +
+                          "VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement stmt = conexao.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date data = formatoDate.parse(agendamento.getDataAgendamento());
+
+            SimpleDateFormat formatoDateTime = new SimpleDateFormat("HH:mm");
+            java.util.Date hora = formatoDateTime.parse(agendamento.getHora());
+
+            stmt.setDate(1, new Date(data.getTime()));
+            stmt.setTime(2, new Time(hora.getTime()));
+            stmt.setInt(3, agendamento.getResponsavelId());
+            stmt.setInt(4, agendamento.getAnimalId());
+            stmt.setInt(5, agendamento.getClinicaId());
+            stmt.setInt(6, agendamento.getVeterinarioId());
+            stmt.setInt(7, agendamento.getTipodePagamentoId());
+            stmt.setInt(8, agendamento.getProcedimentoId());
+
+            stmt.executeUpdate();
+
+            ResultSet resultSet = stmt.getGeneratedKeys();
+
+            if (! resultSet.next()) {
+                throw new SQLException();
+            }
+
+            idInserido = resultSet.getInt(1);
+
+            stmt.close();
+        } catch (SQLException e) {
+            // Em caso de ocorrer erro na integração com banco de dados, as informações do erro serão exibidas
+            System.out.println("Error Code = " + e.getErrorCode());
+            System.out.println("SQL state = " + e.getSQLState());
+            System.out.println("Message = " + e.getMessage());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return idInserido;
     }
 
     public void listarAgendamentos() {

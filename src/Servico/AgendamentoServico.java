@@ -1,27 +1,22 @@
 package Servico;
 
-import DAO.AgendamentoDAO;
-import DAO.AnimalDAO;
-import DAO.ResponsavelDAO;
+import DAO.*;
 import Entidades.Agendamento;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class AgendamentoServico extends Utils {
 
     public void cadastrarAgendamento() {
-        Scanner ler = new Scanner(System.in);
-
-        limpaTela();
-
         Agendamento agendamento = new Agendamento();
 
-        System.out.print("Digite a data do agendamento (dd/MM/YYYY): ");
-        agendamento.setDataAgendamento(ler.nextLine());
+        limpaTela();
+        agendamento.setDataAgendamento(this.validarData());
 
         limpaTela();
-        System.out.print("Digite a hora do agendamento (00:00): ");
-        agendamento.setHora(ler.nextLine());
+        agendamento.setHora(this.validarHora());
 
         limpaTela();
         agendamento.setResponsavelId(this.buscarResponsavel());
@@ -30,12 +25,69 @@ public class AgendamentoServico extends Utils {
         agendamento.setAnimalId(this.buscarAnimal(agendamento.getResponsavelId()));
 
         limpaTela();
+        agendamento.setClinicaId(this.buscarClinica());
 
+        limpaTela();
+        agendamento.setVeterinarioId(this.buscarVeterinario());
+
+        limpaTela();
+        agendamento.setTipodePagamentoId(this.buscarTipoPagamento());
+
+        limpaTela();
+        agendamento.setProcedimentoId(this.buscarProcedimento());
 
         //Salva no final no banco de dados
         AgendamentoDAO agendamentoDAO = new AgendamentoDAO();
         agendamentoDAO.cadastrarAgendamento(agendamento);
 
+        mensagemSucesso("AGENDAMENTO EFETUADO COM SUCESSO");
+
+    }
+
+    private String validarData() {
+        String dataValida = "invalida";
+        Scanner ler = new Scanner(System.in);
+
+        do {
+            System.out.print("Digite a data do agendamento (dd/MM/YYYY): ");
+
+            try {
+                String dataDigitada = ler.nextLine();
+
+                SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
+                formatoDate.parse(dataDigitada);
+
+                dataValida = dataDigitada;
+            } catch (ParseException e) {
+                System.out.println("*** ATENÇÃO DATA INVÁLIDA ***");
+                dataValida = "invalida";
+            }
+        } while (dataValida == "invalida");;
+
+        return dataValida;
+    }
+
+    private String validarHora() {
+        String horaValida = "invalida";
+        Scanner ler = new Scanner(System.in);
+
+        do {
+            System.out.print("Digite a hora do agendamento (00:00): ");
+
+            try {
+                String dataDigitada = ler.nextLine();
+
+                SimpleDateFormat formatoDate = new SimpleDateFormat("HH:mm");
+                formatoDate.parse(dataDigitada);
+
+                horaValida = dataDigitada;
+            } catch (ParseException e) {
+                System.out.println("*** ATENÇÃO HORA INVÁLIDA ***");
+                horaValida = "invalida";
+            }
+        } while (horaValida == "invalida");;
+
+        return horaValida;
     }
 
     public void listarAgendamentos() {
@@ -80,7 +132,7 @@ public class AgendamentoServico extends Utils {
         return responsavelId;
     }
 
-    private int buscarAnimal(int responsavelId) {
+    public int buscarAnimal(int responsavelId) {
         Scanner ler = new Scanner(System.in);
 
 
@@ -105,5 +157,98 @@ public class AgendamentoServico extends Utils {
 
         return animalId;
 
+    }
+
+    public int buscarClinica() {
+        Scanner ler = new Scanner(System.in);
+
+
+        int clinicaId = 0;
+
+        do {
+            ClinicaDAO clinicaDAO = new ClinicaDAO();
+            clinicaDAO.listarClinicas();
+
+            System.out.print("Digite o código da Clinica: ");
+            int codigoDigitado = ler.nextInt();
+
+            int verificarId = clinicaDAO.buscarClinicaPorId(codigoDigitado);
+
+            if (verificarId != 0) {
+                clinicaId = verificarId;
+            }
+
+        } while (clinicaId ==0);
+
+        return clinicaId;
+    }
+
+    public int buscarVeterinario() {
+        Scanner ler = new Scanner(System.in);
+
+        int veterinarioId = 0;
+
+        do {
+            VeterinarioDAO veterinarioDAO = new VeterinarioDAO();
+            veterinarioDAO.listarVeterinarios();
+
+            System.out.print("Digite o código do Veterinário: ");
+            int codigoDigitado = ler.nextInt();
+
+            int verificarId = veterinarioDAO.buscarVeterinarioPorId(codigoDigitado);
+
+            if (verificarId != 0) {
+                veterinarioId = verificarId;
+            }
+
+        } while (veterinarioId ==0);
+
+        return veterinarioId;
+    }
+
+    public int buscarTipoPagamento() {
+        Scanner ler = new Scanner(System.in);
+
+        int tipoDePagamentoId = 0;
+
+        do {
+            TipoDePagamentoDAO tipoDePagamentoDAO = new TipoDePagamentoDAO();
+            tipoDePagamentoDAO.listarTiposDePagamento();
+
+            System.out.print("Digite o código da forma de Pagamento: ");
+            int codigoDigitado = ler.nextInt();
+
+            int verificarId = tipoDePagamentoDAO.buscarTipoPagamentoPorId(codigoDigitado);
+
+            if (verificarId != 0) {
+                tipoDePagamentoId = verificarId;
+            }
+
+        } while (tipoDePagamentoId ==0);
+
+        return tipoDePagamentoId;
+    }
+
+    public int buscarProcedimento() {
+        Scanner ler = new Scanner(System.in);
+
+        int procedimentoId = 0;
+
+        do {
+            ProcedimentoDAO procedimentoDAO = new ProcedimentoDAO();
+            procedimentoDAO.listarProcedimentos();
+
+            System.out.print("Digite o código do procedimento: ");
+            int codigoDigitado = ler.nextInt();
+
+            int verificarId = procedimentoDAO.buscarProcedimentoPorId(codigoDigitado);
+
+            if (verificarId != 0) {
+                procedimentoId = verificarId;
+            }
+
+        } while (procedimentoId ==0);
+
+        return procedimentoId;
     }
 }

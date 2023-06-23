@@ -6,6 +6,10 @@ import Servico.Utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+
 public class Main extends Utils {
 
     public static void main(String[] args) throws IOException {
@@ -46,7 +50,7 @@ public class Main extends Utils {
                  * Buscar agendamentos
                  */
                 case 3:
-                     agendamentoServico.listarAgendamentos();
+                    agendamentoServico.listarAgendamentos();
                     break;
             }
         } while(operacao != 0);

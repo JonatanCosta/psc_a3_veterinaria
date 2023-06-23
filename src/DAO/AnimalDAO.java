@@ -54,9 +54,9 @@ public class AnimalDAO {
             ResultSet rs = stmt.executeQuery();
 
 
-            /**System.out.println("---------------------------------------------------------------------------------------------------------------------------");
-             System.out.format("ID\tNOME\t\t\t\t\t\t\n");
-             System.out.println("---------------------------------------------------------------------------------------------------------------------------");*/
+            System.out.println("-----------------------------------------------");
+             System.out.format("CÓDIGO\tNOME\t\t\t\t\t\t\n");
+             System.out.println("----------------------------------------------");
 
             // Como não sabemos quantas linhas podem ser retornadas na consulta no banco de dados
             // deve-se usar um laço de repetição que vai fazer a leitura enquanto existirem linhas de registros
@@ -71,7 +71,7 @@ public class AnimalDAO {
                 // os valores numéricos correspondem a quantidade de caracteres que a coluna deve ocupar
                 // por exemolo %-20s: o sinal de menos diz que o alinhamento deve ser alinhado a esquerda e que a coluna ocupa 20 caracteres com um valor de string
                 // o \t corresponde a um tab para melhor organização em formato tabular
-                System.out.format("%d\t%-20s\t\n", id, nome);
+                System.out.format("%d\t\t%-30s\t\n", id, nome);
             }
 
             rs.close();
